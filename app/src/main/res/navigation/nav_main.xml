@@ -27,5 +27,19 @@
         <action
             android:id="@+id/action_to_mapListFragment"
             app:destination="@id/mapListFragment" />
+        <action
+            android:id="@+id/action_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="pl.szczodrzynski.minecraftmapy.ui.user.UserFragment"
+        android:label="UserFragment" >
+        <argument
+            android:name="user"
+            app:argType="pl.szczodrzynski.minecraftmapy.model.User" />
+        <action
+            android:id="@+id/action_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
 </navigation>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="pl.szczodrzynski.minecraftmapy.ui.user.UserViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:urlCircled="@{viewModel.user.info.avatarUrl}"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="2"
+            android:text="@{viewModel.user.info.username}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            tools:text="Użytkownik" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@{@string/user_followers_format(viewModel.user.stats.followerCount)}"
+            tools:text="30 obserwujących"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="center">
+
+            <TextView
+                android:id="@+id/starsTotal"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:drawablePadding="4dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="96dp"
+                android:text="@{String.valueOf(viewModel.user.stats.starsTotal)}"
+                tools:drawableTopCompat="@android:drawable/star_big_on"
+                tools:text="1245" />
+
+            <TextView
+                android:id="@+id/downloadsTotal"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:drawablePadding="4dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="96dp"
+                android:text="@{String.valueOf(viewModel.user.stats.downloadsTotal)}"
+                tools:drawableTopCompat="@android:drawable/ic_menu_save"
+                tools:text="150,3K" />
+
+            <TextView
+                android:id="@+id/mapCount"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:drawablePadding="4dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="96dp"
+                android:maxLines="2"
+                android:text="@{String.valueOf(viewModel.user.stats.mapCount)}"
+                tools:drawableTopCompat="@android:drawable/ic_dialog_map"
+                tools:text="10" />
+
+            <TextView
+                android:id="@+id/commentsWritten"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:drawablePadding="4dp"
+                android:gravity="center_horizontal"
+                android:maxWidth="96dp"
+                android:text="@{String.valueOf(viewModel.user.stats.commentsWritten)}"
+                tools:drawableTopCompat="@android:drawable/ic_input_get"
+                tools:text="30" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/user_type_active_format(viewModel.user.info.role, viewModel.user.info.lastLoggedRelative)}"
+            android:textStyle="italic"
+            tools:text="Administrator • Aktywny(a) wczoraj" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="#7f7f7f7f" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="16dp"
+            android:autoLink="all"
+            android:text="@{viewModel.user.info.description}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="To jest opis, bardzo długi tekst i tak dalej..." />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="#7f7f7f7f" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{@string/user_maps_format(viewModel.user.stats.mapCount)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            tools:text="Mapy (11)" />
+    </LinearLayout>
+</layout>

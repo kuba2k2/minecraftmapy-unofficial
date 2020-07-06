@@ -5,19 +5,23 @@ import pl.szczodrzynski.minecraftmapy.data.api.model.ApiResponse
 import pl.szczodrzynski.minecraftmapy.data.repository.MapRepository
 import pl.szczodrzynski.minecraftmapy.model.MapQuery
 import pl.szczodrzynski.minecraftmapy.model.McMap
-import javax.inject.Inject
 
-class MapListPagingSource @Inject constructor(
-    val repository: MapRepository
+class MapListPagingSource constructor(
+    private val mapRepository: MapRepository,
+    query: MapQuery = MapQuery(),
+    private val recommended: Boolean = false,
+    private val username: String? = null
 ) : PagingSource<Int, McMap>() {
 
-    var query = MapQuery()
+    var query = query
         set(value) { field = value; invalidate() }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, McMap> {
-        val maps = repository.getMaps(
+        val maps = mapRepository.getMaps(
             page = params.key ?: 1,
-            query = query
+            query = query,
+            recommended = recommended,
+            username = username
         )
         if (maps is ApiResponse.Error) {
             return LoadResult.Error(maps.throwable)

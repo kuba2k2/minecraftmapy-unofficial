@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme_Light)
+        setTheme(R.style.AppTheme_Dark)
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
 

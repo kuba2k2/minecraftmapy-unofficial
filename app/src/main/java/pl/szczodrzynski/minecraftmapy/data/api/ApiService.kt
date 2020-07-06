@@ -44,6 +44,7 @@ interface ApiService {
 
     @GET("user/{username}/maps")
     suspend fun getUserMaps(
-        @Path("username") username: String
+        @Path("username") username: String,
+        @Query("page") page: Int? = null
     ): Response<ApiRawResponse<List<McMap>>>
 }

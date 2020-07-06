@@ -1,4 +1,4 @@
-package pl.szczodrzynski.minecraftmapy.ui.map
+package pl.szczodrzynski.minecraftmapy.ui.user
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -12,69 +12,38 @@ import pl.szczodrzynski.minecraftmapy.base.BaseViewModel
 import pl.szczodrzynski.minecraftmapy.data.api.model.ApiResponse
 import pl.szczodrzynski.minecraftmapy.data.repository.MapRepository
 import pl.szczodrzynski.minecraftmapy.data.repository.UserRepository
-import pl.szczodrzynski.minecraftmapy.model.MapQuery
 import pl.szczodrzynski.minecraftmapy.model.McMap
 import pl.szczodrzynski.minecraftmapy.model.User
-import pl.szczodrzynski.minecraftmapy.ui.map.comment.MapCommentListPagingSource
+import pl.szczodrzynski.minecraftmapy.ui.maps.MapListPagingSource
 
-class MapViewModel @ViewModelInject constructor(
+class UserViewModel @ViewModelInject constructor(
     private val mapRepository: MapRepository,
     private val userRepository: UserRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    val map = MutableLiveData<McMap>()
     val user = MutableLiveData<User>()
-    val userFetched = MutableLiveData<Boolean>(false)
 
-    val comments = Pager(
+    val maps = Pager(
         PagingConfig(pageSize = 20, initialLoadSize = 20)
     ) {
-        MapCommentListPagingSource(mapRepository, map.value?.code)
+        MapListPagingSource(mapRepository, username = user.value?.info?.username)
     }.flow.cachedIn(viewModelScope)
 
-    suspend fun loadMap(map: McMap) {
-        if (this.map.value == map)
+    fun loadUser(user: User) {
+        if (this.user.value == user)
             return
-        this.map.postValue(map)
-        fetchUser(map.author.username)
-    }
-
-    suspend fun fetchMap(code: String) {
-
+        this.user.postValue(user)
     }
 
     suspend fun fetchUser(username: String) {
         val response = userRepository.getUser(username)
         if (response is ApiResponse.Success) {
             user.postValue(response.data)
-            userFetched.postValue(true)
         }
     }
 
-    fun onUserClicked(user: User) {
-        navigate(MapFragmentDirections.actionToUserFragment(
-            user
-        ))
-    }
-
-    fun onCategoryClicked(map: McMap) {
-        navigate(MapFragmentDirections.actionToMapListFragment(
-            MapQuery(category = map.info.category)
-        ))
-    }
-
-    fun onVersionClicked(map: McMap) {
-        navigate(MapFragmentDirections.actionToMapListFragment(
-            MapQuery(version = map.info.version)
-        ))
-    }
-
-    fun onDownloadClicked(map: McMap) {
-
-    }
-
-    fun onStarClicked(map: McMap) {
-
+    fun onMapClicked(map: McMap) {
+        navigate(UserFragmentDirections.actionToMapFragment(map))
     }
 }

@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import pl.szczodrzynski.minecraftmapy.R
 import pl.szczodrzynski.minecraftmapy.base.BaseFragment
 import pl.szczodrzynski.minecraftmapy.databinding.MapListFragmentBinding
-import pl.szczodrzynski.minecraftmapy.model.MapQuery
 import pl.szczodrzynski.minecraftmapy.ui.common.ListLoadStateAdapter
 
 @AndroidEntryPoint
@@ -33,7 +32,7 @@ class MapListFragment : BaseFragment<MapListFragmentBinding>({ inflater, parent 
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarCollapsed(getString(R.string.title_home))
-        val adapter = MapListAdapter(view.context, MapComparator) {
+        val adapter = MapListAdapter(MapComparator) {
             viewModel.onMapClicked(it)
         }
 
@@ -50,7 +49,7 @@ class MapListFragment : BaseFragment<MapListFragmentBinding>({ inflater, parent 
             }
         }
 
-        viewModel.pagingSource.query = args.query ?: MapQuery()
+        viewModel.updateQuery(args.query)
 
         lifecycleScope.launch {
             viewModel.flow.collectLatest { pagingData ->

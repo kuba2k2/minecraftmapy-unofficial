@@ -6,4 +6,13 @@
     <string name="menu_notifications">Powiadomienia</string>
     <string name="follow">Obserwuj</string>
     <string name="title_home">Strona główna</string>
+    <string name="user_stars_total_hint">Otrzymane diamenty</string>
+    <string name="user_downloads_total_hint">Suma pobrań map</string>
+    <string name="user_map_count_hint">Ilość wrzuconych map</string>
+    <string name="user_comments_written_hint">Ilość napisanych komentarzy</string>
+    <string name="user_type_active_format">%s • Aktywny(a) %s</string>
+    <string name="user_followers_format">%d obserwuje</string>
+    <string name="user_maps_format">Mapy (%d)</string>
+    <string name="map_comments_format">Komentarze (%d)</string>
+    <string name="map_comment_original_poster">{cmd-account-circle-outline} Autor mapy</string>
 </resources>

@@ -29,7 +29,7 @@ data class User(
         @SerializedName("download_sum")
         val downloadsTotal: Int,
         @SerializedName("written_comments")
-        val commentsTotal: Int,
+        val commentsWritten: Int,
         @SerializedName("given_diamonds")
         val starsGiven: Int,
         @SerializedName("map_count")

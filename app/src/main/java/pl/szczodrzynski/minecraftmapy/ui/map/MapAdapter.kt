@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
-import coil.transform.CircleCropTransformation
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.community.material.CommunityMaterial
 import com.mikepenz.iconics.utils.colorInt
@@ -41,21 +39,22 @@ class MapAdapter(
                 sizeDp = 28
                 colorInt = 0xff555555.toInt()
             }
-            b.category.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_shape_outline).apply(config)
-            b.version.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_tag_outline).apply(config)
-            b.downloads.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon.cmd_download_outline).apply(config)
-            b.stars.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_star_outline).apply(config)
-            b.category.setOnClickListener { viewModel.onCategoryClicked(map) }
-            b.version.setOnClickListener { viewModel.onVersionClicked(map) }
-            b.downloads.setOnClickListener { viewModel.onDownloadsClicked(map) }
-            b.stars.setOnClickListener { viewModel.onStarsClicked(map) }
+            b.categoryName.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_shape_outline).apply(config)
+            b.versionName.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_tag_outline).apply(config)
+            b.downloadCount.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon.cmd_download_outline).apply(config)
+            b.starCount.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_star_outline).apply(config)
+            /*b.categoryName.setOnClickListener { viewModel.onCategoryClicked(map) }
+            b.versionName.setOnClickListener { viewModel.onVersionClicked(map) }
+            b.downloadCount.setOnClickListener { viewModel.onDownloadClicked(map) }
+            b.starCount.setOnClickListener { viewModel.onStarClicked(map) }*/
         }
 
-        viewModel.user.observe(viewLifecycleOwner) {
-            b.userImage.load(it.info.avatarUrl) {
+        /*viewModel.user.observe(viewLifecycleOwner) { user ->
+            b.userImage.load(user.info.avatarUrl) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
-        }
+            b.userLayout.setOnClickListener { viewModel.onUserClicked(user) }
+        }*/
     }
 }
