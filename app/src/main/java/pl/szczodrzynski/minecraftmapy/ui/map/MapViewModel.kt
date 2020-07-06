@@ -22,8 +22,8 @@ class MapViewModel @ViewModelInject constructor(
     private val userRepository: UserRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
-    val map = MutableLiveData<McMap>()
 
+    val map = MutableLiveData<McMap>()
     val user = MutableLiveData<User>()
     val userFetched = MutableLiveData<Boolean>(false)
 
@@ -34,6 +34,8 @@ class MapViewModel @ViewModelInject constructor(
     }.flow.cachedIn(viewModelScope)
 
     suspend fun loadMap(map: McMap) {
+        if (this.map.value == map)
+            return
         fetchUser(map.author.username)
         this.map.postValue(map)
     }
