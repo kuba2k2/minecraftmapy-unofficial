@@ -25,6 +25,7 @@ class MapViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val map = MutableLiveData<McMap>()
+    val mapFetched = MutableLiveData<Boolean>(false)
     val user = MutableLiveData<User>()
     val userFetched = MutableLiveData<Boolean>(false)
 
@@ -38,27 +39,40 @@ class MapViewModel @ViewModelInject constructor(
         if (this.map.value == map)
             return
         this.map.postValue(map)
+        mapFetched.postValue(true)
         fetchUser(map.author.username)
     }
 
-    suspend fun fetchMap(code: String) {
+    suspend fun loadMap(code: String) {
         if (this.map.value?.code == code)
             return
-        val response = mapRepository.getMap(code)
-        if (response is ApiResponse.Success) {
-            map.postValue(response.data)
-            fetchUser(response.data.author.username)
+        fetchMap(code)?.author?.username?.let {
+            fetchUser(it)
         }
     }
 
-    suspend fun fetchUser(username: String) {
+    private suspend fun fetchMap(code: String): McMap? {
+        if (this.map.value?.code == code)
+            return null
+        val response = mapRepository.getMap(code)
+        if (response is ApiResponse.Success) {
+            map.postValue(response.data)
+            mapFetched.postValue(true)
+            return response.data
+        }
+        return null
+    }
+
+    private suspend fun fetchUser(username: String): User? {
         if (this.user.value?.info?.username == username)
-            return
+            return null
         val response = userRepository.getUser(username)
         if (response is ApiResponse.Success) {
             user.postValue(response.data)
             userFetched.postValue(true)
+            return response.data
         }
+        return null
     }
 
     fun onUserClicked(user: User) {
@@ -85,10 +99,6 @@ class MapViewModel @ViewModelInject constructor(
         navigate(MapFragmentDirections.actionToMapListFragment(
             MapQuery(version = map.info.version)
         ))
-    }
-
-    fun onDownloadClicked(map: McMap) {
-
     }
 
     fun onStarClicked(map: McMap) {

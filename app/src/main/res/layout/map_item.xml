@@ -96,12 +96,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="8dp"
-            android:background="#7f7f7f7f" />
+            android:background="#7f7f7f7f"
+            android:isVisible="@{viewModel.mapFetched}" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:isVisible="@{viewModel.mapFetched}"
             app:flexDirection="row"
             app:flexWrap="wrap"
             app:justifyContent="center">
@@ -144,7 +146,6 @@
                 android:drawablePadding="4dp"
                 android:gravity="center_horizontal"
                 android:maxWidth="96dp"
-                android:onClick="@{() -> viewModel.onDownloadClicked(viewModel.map)}"
                 android:text="@{String.valueOf(viewModel.map.stats.downloadCount)}"
                 tools:drawableTopCompat="@android:drawable/ic_menu_save"
                 tools:text="150,3K" />
@@ -154,11 +155,9 @@
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:background="?selectableItemBackgroundBorderless"
                 android:drawablePadding="4dp"
                 android:gravity="center_horizontal"
                 android:maxWidth="96dp"
-                android:onClick="@{() -> viewModel.onStarClicked(viewModel.map)}"
                 android:text="@{String.valueOf(viewModel.map.stats.starCount)}"
                 tools:drawableTopCompat="@android:drawable/star_big_on"
                 tools:text="1245" />
@@ -177,7 +176,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="8dp"
-            android:background="#7f7f7f7f" />
+            android:background="#7f7f7f7f"
+            android:isVisible="@{viewModel.mapFetched}" />
 
         <TextView
             android:id="@+id/description"
@@ -200,6 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:isVisible="@{viewModel.mapFetched}"
             android:text="@{@string/map_comments_format(viewModel.map.stats.commentCount)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             tools:text="Komentarze (128)" />

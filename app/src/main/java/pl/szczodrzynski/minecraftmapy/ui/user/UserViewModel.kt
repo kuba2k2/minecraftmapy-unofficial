@@ -23,6 +23,7 @@ class UserViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val user = MutableLiveData<User>()
+    val userFetched = MutableLiveData<Boolean>()
 
     val maps = Pager(
         PagingConfig(pageSize = 20, initialLoadSize = 20)
@@ -34,6 +35,7 @@ class UserViewModel @ViewModelInject constructor(
         if (this.user.value == user)
             return
         this.user.postValue(user)
+        userFetched.postValue(true)
     }
 
     suspend fun fetchUser(username: String) {
@@ -42,6 +44,7 @@ class UserViewModel @ViewModelInject constructor(
         val response = userRepository.getUser(username)
         if (response is ApiResponse.Success) {
             user.postValue(response.data)
+            userFetched.postValue(true)
         }
     }
 

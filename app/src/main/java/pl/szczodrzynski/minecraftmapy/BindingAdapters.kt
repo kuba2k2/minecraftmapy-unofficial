@@ -1,5 +1,7 @@
 package pl.szczodrzynski.minecraftmapy
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isInvisible
@@ -22,6 +24,7 @@ fun bindIsInvisible(view: View, isInvisible: Boolean) {
 fun bindUrl(imageView: ImageView, url: String?) {
     imageView.load(url) {
         crossfade(true)
+        placeholder(ColorDrawable(Color.BLACK))
     }
 }
 
@@ -30,5 +33,6 @@ fun bindUrlCircled(imageView: ImageView, url: String?) {
     imageView.load(url) {
         crossfade(true)
         transformations(CircleCropTransformation())
+        placeholder(ColorDrawable(Color.BLACK))
     }
 }

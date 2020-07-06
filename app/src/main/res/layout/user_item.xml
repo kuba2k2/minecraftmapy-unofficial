@@ -14,14 +14,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
-            android:urlCircled="@{viewModel.user.info.avatarUrl}"
-            tools:src="@tools:sample/avatars" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_margin="16dp"
+                android:urlCircled="@{viewModel.user.info.avatarUrl}"
+                tools:src="@tools:sample/avatars" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:isVisible="@{!viewModel.userFetched}" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -37,13 +48,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:isVisible="@{viewModel.userFetched}"
             android:text="@{@string/user_followers_format(viewModel.user.stats.followerCount)}"
-            tools:text="30 obserwujących"/>
+            tools:text="30 obserwujących" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:isVisible="@{viewModel.userFetched}"
             app:flexDirection="row"
             app:flexWrap="wrap"
             app:justifyContent="center">
@@ -107,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="center_horizontal"
+            android:isVisible="@{viewModel.userFetched}"
             android:text="@{@string/user_type_active_format(viewModel.user.info.role, viewModel.user.info.lastLoggedRelative)}"
             android:textStyle="italic"
             tools:text="Administrator • Aktywny(a) wczoraj" />
@@ -115,7 +129,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="8dp"
-            android:background="#7f7f7f7f" />
+            android:background="#7f7f7f7f"
+            android:isVisible="@{viewModel.userFetched}" />
 
         <TextView
             android:id="@+id/description"
@@ -132,12 +147,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginHorizontal="8dp"
-            android:background="#7f7f7f7f" />
+            android:background="#7f7f7f7f"
+            android:isVisible="@{viewModel.userFetched}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:isVisible="@{viewModel.userFetched}"
             android:text="@{@string/user_maps_format(viewModel.user.stats.mapCount)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             tools:text="Mapy (11)" />

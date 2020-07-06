@@ -37,6 +37,8 @@ class UserFragment : BaseFragment<UserFragmentBinding>({ inflater, parent ->
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarCollapsed(args.user?.info?.username ?: args.username ?: "")
+
         val userAdapter = UserAdapter(viewModel, viewLifecycleOwner)
         val mapAdapter = MapListAdapter(MapComparator) {
             viewModel.onMapClicked(it)

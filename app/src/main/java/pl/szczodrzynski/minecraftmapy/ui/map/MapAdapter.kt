@@ -1,5 +1,7 @@
 package pl.szczodrzynski.minecraftmapy.ui.map
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -12,6 +14,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import pl.szczodrzynski.minecraftmapy.base.BindingViewHolder
 import pl.szczodrzynski.minecraftmapy.databinding.MapItemBinding
 import pl.szczodrzynski.minecraftmapy.drawableTop
+
 
 class MapAdapter(
     private val viewModel: MapViewModel,
@@ -43,18 +46,12 @@ class MapAdapter(
             b.versionName.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_tag_outline).apply(config)
             b.downloadCount.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon.cmd_download_outline).apply(config)
             b.starCount.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_star_outline).apply(config)
-            /*b.categoryName.setOnClickListener { viewModel.onCategoryClicked(map) }
-            b.versionName.setOnClickListener { viewModel.onVersionClicked(map) }
-            b.downloadCount.setOnClickListener { viewModel.onDownloadClicked(map) }
-            b.starCount.setOnClickListener { viewModel.onStarClicked(map) }*/
-        }
 
-        /*viewModel.user.observe(viewLifecycleOwner) { user ->
-            b.userImage.load(user.info.avatarUrl) {
-                crossfade(true)
-                transformations(CircleCropTransformation())
+            b.downloadCount.setOnClickListener {
+                val i = Intent(Intent.ACTION_VIEW)
+                i.data = Uri.parse(map.info.downloadUrl)
+                context.startActivity(i)
             }
-            b.userLayout.setOnClickListener { viewModel.onUserClicked(user) }
-        }*/
+        }
     }
 }

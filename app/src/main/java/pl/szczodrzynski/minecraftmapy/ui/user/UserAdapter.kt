@@ -45,17 +45,11 @@ class UserAdapter(
             b.downloadsTotal.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon.cmd_download_outline).apply(config)
             b.mapCount.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon2.cmd_map_outline).apply(config)
             b.commentsWritten.drawableTop = IconicsDrawable(context, CommunityMaterial.Icon.cmd_comment_text_multiple_outline).apply(config)
+
             b.starsTotal.setOnClickListener { Toast.makeText(context, R.string.user_stars_total_hint, Toast.LENGTH_LONG).show() }
             b.downloadsTotal.setOnClickListener { Toast.makeText(context, R.string.user_downloads_total_hint, Toast.LENGTH_LONG).show() }
             b.mapCount.setOnClickListener { Toast.makeText(context, R.string.user_map_count_hint, Toast.LENGTH_LONG).show() }
             b.commentsWritten.setOnClickListener { Toast.makeText(context, R.string.user_comments_written_hint, Toast.LENGTH_LONG).show() }
         }
-
-        /*viewModel.user.observe(viewLifecycleOwner) { user ->
-            b.userImage.load(user.info.avatarUrl) {
-                crossfade(true)
-                transformations(CircleCropTransformation())
-            }
-        }*/
     }
 }
