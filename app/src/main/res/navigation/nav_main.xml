@@ -37,9 +37,14 @@
         android:label="UserFragment" >
         <argument
             android:name="user"
-            app:argType="pl.szczodrzynski.minecraftmapy.model.User" />
+            app:argType="pl.szczodrzynski.minecraftmapy.model.User"
+            app:nullable="true" />
         <action
             android:id="@+id/action_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -12,6 +12,7 @@ import pl.szczodrzynski.minecraftmapy.base.BaseViewModel
 import pl.szczodrzynski.minecraftmapy.data.api.model.ApiResponse
 import pl.szczodrzynski.minecraftmapy.data.repository.MapRepository
 import pl.szczodrzynski.minecraftmapy.data.repository.UserRepository
+import pl.szczodrzynski.minecraftmapy.model.Comment
 import pl.szczodrzynski.minecraftmapy.model.MapQuery
 import pl.szczodrzynski.minecraftmapy.model.McMap
 import pl.szczodrzynski.minecraftmapy.model.User
@@ -51,6 +52,8 @@ class MapViewModel @ViewModelInject constructor(
     }
 
     suspend fun fetchUser(username: String) {
+        if (this.user.value?.info?.username == username)
+            return
         val response = userRepository.getUser(username)
         if (response is ApiResponse.Success) {
             user.postValue(response.data)
@@ -60,7 +63,15 @@ class MapViewModel @ViewModelInject constructor(
 
     fun onUserClicked(user: User) {
         navigate(MapFragmentDirections.actionToUserFragment(
-            user
+            user = user,
+            username = null
+        ))
+    }
+
+    fun onCommentClicked(comment: Comment) {
+        navigate(MapFragmentDirections.actionToUserFragment(
+            user = null,
+            username = comment.author.username
         ))
     }
 

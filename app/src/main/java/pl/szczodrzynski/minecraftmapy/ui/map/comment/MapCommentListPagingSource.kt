@@ -4,11 +4,10 @@ import androidx.paging.PagingSource
 import pl.szczodrzynski.minecraftmapy.data.api.model.ApiResponse
 import pl.szczodrzynski.minecraftmapy.data.repository.MapRepository
 import pl.szczodrzynski.minecraftmapy.model.Comment
-import javax.inject.Inject
 
-class MapCommentListPagingSource @Inject constructor(
-        val repository: MapRepository,
-        val mapCode: String?
+class MapCommentListPagingSource constructor(
+    private val mapRepository: MapRepository,
+    private val mapCode: String?
 ) : PagingSource<Int, Comment>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Comment> {
@@ -16,7 +15,7 @@ class MapCommentListPagingSource @Inject constructor(
             return LoadResult.Error(Exception("MapCode is not provided."))
         }
 
-        val comments = repository.getMapComments(
+        val comments = mapRepository.getMapComments(
                 page = params.key ?: 1,
                 mapCode = mapCode
         )

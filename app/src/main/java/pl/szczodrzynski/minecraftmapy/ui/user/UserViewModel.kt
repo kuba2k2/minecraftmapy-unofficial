@@ -37,6 +37,8 @@ class UserViewModel @ViewModelInject constructor(
     }
 
     suspend fun fetchUser(username: String) {
+        if (this.user.value?.info?.username == username)
+            return
         val response = userRepository.getUser(username)
         if (response is ApiResponse.Success) {
             user.postValue(response.data)

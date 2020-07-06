@@ -62,7 +62,12 @@ class UserFragment : BaseFragment<UserFragmentBinding>({ inflater, parent ->
         }
 
         launch {
-            viewModel.loadUser(args.user)
+            if (args.user != null)
+                viewModel.loadUser(args.user!!)
+            else if (args.username != null)
+                viewModel.fetchUser(args.username!!)
+            //else
+            //    throw Exception("No user or username supplied.")
         }
     }
 }

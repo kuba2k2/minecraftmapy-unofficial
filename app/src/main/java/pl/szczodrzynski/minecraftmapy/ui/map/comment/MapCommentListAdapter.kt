@@ -13,6 +13,8 @@ class MapCommentListAdapter(
         private val onItemClick: (item: Comment) -> Unit
 ) : PagingDataAdapter<Comment, BindingViewHolder<MapCommentListItemBinding>>(diffCallback) {
 
+    var originalPosterUsername: String? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<MapCommentListItemBinding> {
         return BindingViewHolder(MapCommentListItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -25,6 +27,7 @@ class MapCommentListAdapter(
         val b = holder.b
         val item = getItem(position)
         b.comment = item
+        b.isOP = item?.author?.username == originalPosterUsername
         b.root.setOnClickListener { item?.let(onItemClick) }
     }
 }

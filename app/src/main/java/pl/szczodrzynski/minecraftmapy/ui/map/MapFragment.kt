@@ -39,7 +39,7 @@ class MapFragment : BaseFragment<MapFragmentBinding>({ inflater, parent ->
 
         val mapAdapter = MapAdapter(viewModel, viewLifecycleOwner)
         val commentAdapter = MapCommentListAdapter(MapCommentComparator) {
-
+            viewModel.onCommentClicked(it)
         }
 
         b.list.adapter = ConcatAdapter(
@@ -53,6 +53,7 @@ class MapFragment : BaseFragment<MapFragmentBinding>({ inflater, parent ->
 
         viewModel.map.observe(viewLifecycleOwner) { map ->
             setToolbarExpanded(map.info.title, map.images.first())
+            commentAdapter.originalPosterUsername = map.author.username
 
             lifecycleScope.launch {
                 viewModel.comments.collectLatest { pagingData ->
