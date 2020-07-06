@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MinecraftMapy</string>
+    <string name="menu_home">Strona główna</string>
+    <string name="menu_browse">Przeglądaj</string>
+    <string name="menu_account">Konto</string>
+    <string name="menu_notifications">Powiadomienia</string>
+    <string name="follow">Obserwuj</string>
+    <string name="title_home">Strona główna</string>
+</resources>
