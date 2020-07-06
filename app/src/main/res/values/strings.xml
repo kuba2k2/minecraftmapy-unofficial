@@ -15,4 +15,5 @@
     <string name="user_maps_format">Mapy (%d)</string>
     <string name="map_comments_format">Komentarze (%d)</string>
     <string name="map_comment_original_poster">{cmd-account-circle-outline} Autor mapy</string>
+    <string name="map_list_details_format">{cmd-shape-outline} %s • {cmd-download-outline} %d • {cmd-star-outline} %d</string>
 </resources>
