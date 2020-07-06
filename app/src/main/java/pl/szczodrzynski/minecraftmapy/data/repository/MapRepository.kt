@@ -29,6 +29,8 @@ class MapRepository @Inject constructor(
         ).toApiResponse()
     }
 
+    suspend fun getMap(code: String) = api.getMap(code).toApiResponse()
+
     suspend fun getMapComments(page: Int = 1, mapCode: String) = api.getMapComments(
             code = mapCode,
             page = page

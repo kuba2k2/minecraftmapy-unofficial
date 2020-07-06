@@ -41,7 +41,13 @@ class MapViewModel @ViewModelInject constructor(
     }
 
     suspend fun fetchMap(code: String) {
-
+        if (this.map.value?.code == code)
+            return
+        val response = mapRepository.getMap(code)
+        if (response is ApiResponse.Success) {
+            map.postValue(response.data)
+            fetchUser(response.data.author.username)
+        }
     }
 
     suspend fun fetchUser(username: String) {
